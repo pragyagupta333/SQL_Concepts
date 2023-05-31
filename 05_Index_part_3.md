@@ -25,3 +25,33 @@ The results returned after running the procedures include following information:
 - **Fragmentation is less than 10%** – **no de-fragmentation** is required. It is generally accepted that in majority of environments index fragmentation less than 10% in negligible and its performance impact on the SQL Server is minimal.
 - **Fragmentation is between 10-30%** – it is suggested to perform **index reorganization**
 - **Fragmentation is higher than 30%** – it is suggested to perform **index rebuild**
+
+# Rebuild Index
+- Rebuilding an index involves recreating the entire index structure from scratch.
+- This operation drops the existing index and rebuilds it based on the underlying table's data.
+- During the rebuild process, the index is unavailable for read or write operations.
+- Rebuilding an index updates index statistics 
+- An index rebuild simply drops and recreates the index which means that index rebuild will solve both the internal and external fragmentation. 
+            
+      ALTER INDEX ALL ON MyTable REBUILD;
+
+# Reorganize Index 
+- Reorganizing physically reorganizes the leaf-level pages of an index without recreating the entire index structure.
+- The index remains available for read and write operations during the reorganize process.
+- Reorganize operation does not update index statistics.
+- An index reorganize only solves external fragmentation by moving pages around.
+
+      ALTER INDEX ALL ON MyTable REORGANIZE;
+
+While index reorganization is a pure cleanup operation that leaves the system state as it is without locking-out affected tables and views, the rebuild process locks the affected table for the whole rebuild period, which may result in long down-times that could not be acceptable in some environments.
+
+# Update Statistics 
+Statistics store information about the data distribution of the column value(s) in your tables as well as the total number of rows. For indexes it stores the distribution of key values. 
+
+## How are SQL UPDATE STATISTICS used
+Existing statistics are used by the query optimizer in order to generate the most efficient query plan for execution. The query optimizer uses the statistics to determine when an index should be used, how to access those indexes, how best to join tables, etc.
+
+# References 
+https://solutioncenter.apexsql.com/why-when-and-how-to-rebuild-and-reorganize-sql-server-indexes/
+
+https://www.mssqltips.com/sqlservertip/6720/update-statistics-sql-server/
