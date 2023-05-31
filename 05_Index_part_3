@@ -1,0 +1,12 @@
+# Rebuild, Reorganize Indexes
+
+Both rebuild and reorganize are index maintainence techniques.
+
+### Need of rebuild and reorganizing indexes
+The solution to [fragmented indexes] is to rebuild or reorganize indexes.
+
+But, before considering maintenance of indexes, it is important to answer two main questions:
+
+1. What is the degree of fragmentation?
+
+2. What is the appropriate action? Reorganize or rebuild?
