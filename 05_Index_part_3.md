@@ -1,4 +1,4 @@
-# Rebuild, Reorganize Indexes
+# Reindex, Rebuild, Reorganize Indexes
 
 Both rebuild and reorganize are index maintainence techniques.
 
@@ -44,6 +44,10 @@ The results returned after running the procedures include following information:
       ALTER INDEX ALL ON MyTable REORGANIZE;
 
 While index reorganization is a pure cleanup operation that leaves the system state as it is without locking-out affected tables and views, the rebuild process locks the affected table for the whole rebuild period, which may result in long down-times that could not be acceptable in some environments.
+
+# Reindex 
+- Reindexing helps ensure that the index metadata is up to date and accurate, which can improve the performance of query optimization. 
+- Reindexing usually does not require exclusive locks on the table being indexed. It can often be performed online, allowing concurrent read and write operations on the table during the reindex operation
 
 # Update Statistics 
 Statistics store information about the data distribution of the column value(s) in your tables as well as the total number of rows. For indexes it stores the distribution of key values. 
