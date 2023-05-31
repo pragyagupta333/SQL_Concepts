@@ -60,6 +60,8 @@ For change related to customer names, only customer table needs to be updated
 
 # Useful References
 
-https://dotnettutorials.net/lesson/database-normalization-in-mysql/
+[Normalization](https://dotnettutorials.net/lesson/database-normalization-in-mysql/)
+
 [Normalization](https://www.youtube.com/watch?v=SEdAF8mSKS4&t=482s)
+
 [Denormalization](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DvRqzFBTgGJA&psig=AOvVaw2QgTHwUn6VG183yEQpPCjD&ust=1685495910508000&source=images&cd=vfe&ved=0CBMQjhxqFwoTCMCGztvvm_8CFQAAAAAdAAAAABBF)
