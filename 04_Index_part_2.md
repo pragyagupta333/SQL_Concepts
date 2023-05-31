@@ -59,4 +59,5 @@ While inserting the value 4 into the table it has to place in the Page 1 between
  
  # References 
  [SQL Server central](https://www.sqlservercentral.com/blogs/sql-server-index-fragmentation-understanding-fragmentation)
+ 
  [MSSQLtips](https://www.mssqltips.com/sqlservertip/4331/sql-server-index-fragmentation-overview/)
