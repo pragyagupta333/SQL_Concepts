@@ -27,7 +27,13 @@
         create table test(
         a text[] )
 
+## What is Schema ?
+A schema is a logical collection of database objects such as tables, views, stored procedures, indexes, triggers, functions.
 
+## Need of schema in database
+- Facilitate security management i.e who can access what database objects,you can grant someone access to a schema without exposing your entire database to them.
+- Serves as a namespace, that is preventing name clashes between objects from different schemas.
+- They partition your database to make management easier.
 
 ## Unique Keys V/S Primary Keys 
 - Unique key can have NULLs but primary key cannot
