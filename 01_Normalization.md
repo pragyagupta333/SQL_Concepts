@@ -1,6 +1,4 @@
-# SQL Concepts - 1 
-
-## Normalization
+# Normalization
 
 It is a database design technique to reduce redundant data.
 
