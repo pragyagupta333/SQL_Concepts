@@ -1,3 +1,11 @@
+# Data partitioning
+The division of a large table into smaller, more manageable pieces called partitions. Each partition contains a subset of the table's data and is treated as a separate logical unit within the table. 
+
+## Need of Data Partitioning
+- When executing a query, the database engine can target specific partitions relevant to the query conditions, rather than scanning the entire table. This reduces the amount of data that needs to be processed, leading to faster query execution times.
+- Partitioning makes data maintenance operations more efficient. For example, if you need to delete or archive old data, you can easily drop or move entire partitions instead of individually deleting rows. 
+
+
 ## Postgres V/s SQL Server
 
 - #### Postgres has [JSON](https://www.postgresql.org/docs/current/datatype.html) as DataType but SQL Server does not support [JSON](https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16) as DataType
