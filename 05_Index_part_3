@@ -3,7 +3,7 @@
 Both rebuild and reorganize are index maintainence techniques.
 
 ### Need of rebuild and reorganizing indexes
-The solution to [fragmented indexes] is to rebuild or reorganize indexes.
+The solution to [fragmented indexes](https://github.com/pragyagupta333/SQL_Concepts/blob/main/04_Index_part_2.md) is to rebuild or reorganize indexes.
 
 But, before considering maintenance of indexes, it is important to answer two main questions:
 
