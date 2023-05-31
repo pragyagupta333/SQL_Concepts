@@ -41,8 +41,12 @@ Factless fact tables primarily focus on capturing the relationships between dime
 
 ### Advantages : 
 - Dimension tables are more denormalized to improves performance by minimizing joins and faster queries
+
 ### Disadvantages : 
 - Data redundancy is high and occupies more disk space
+
+## When to use Star Schema ?
+It is well-suited for reporting and analysis scenarios where centralized fact table contains the measures or numerical values, and dimension tables surrounding it, users can easily navigate the data and perform aggregations, slicing and dicing, and drill-down analysis with less joins and faster data retreival
 
 ## Snowflake Schema
 - Not all dimension table are connected to fact table directly i.e This schema has fact table which connects to dimension tables and these dimension table are furthur connected to sub-dimension tables
@@ -52,8 +56,12 @@ Factless fact tables primarily focus on capturing the relationships between dime
 ## Advantages
 - Data redundancy is less with less disk space 
 - Easier to maintain as updates needs to be made on less tables due to effective normalization
+
 ## Disavantages
 - Dimension tables are normalized due to which performance might be slow due to many joins
+
+## When to use Snowflake Schema ?
+When there is hierarchical relationships among dimension attributes like in E-commerce where separate dimension tables for each level of the hierarchy (e.g., category, subcategory, product) needs to be created
 
 ## Galaxy Schema / Fact Constellation
 Galaxy Schema uses multiple fact tables connected with shared normalized dimension tables.
