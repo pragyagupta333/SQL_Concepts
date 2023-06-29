@@ -1,6 +1,6 @@
 
 
-# Operations In Execution Plans Of postgres
+# Scan Operations In Execution Plans Of postgres
 ## Types Of Scans 
 
 ## 1. Seq Scan
