@@ -82,25 +82,3 @@ Merge Join (cost=XX.XX..YY.YY rows=ZZZZ width=WW)
 ```
 
 
-# What Is materialize in a query plan?
-
-Query :
-```
-EXPLAIN  SELECT c.name
-FROM customers c
-JOIN orders o ON c.id < o.customer_id
-```
-
-Output :
-```
-Nested Loop Inner Join (rows=10 loops=1)
-  Join Filter: (o.customer_id > c.id)
-Seq Scan on customers as c (rows=5 loops=1)	
-Materialize (rows=5 loops=5)	
- Seq Scan on orders as o (rows=5 loops=1)
-```
-
-- In this specific query, the materialize step is used to store the result of the "Seq Scan on customers as c" step.
-- The reason for materializing the result is that it allows the materialized result set to be accessed multiple times within the subsequent Nested Loop Inner Join step.
-- The materialized result can be efficiently used without re-computing it for each iteration.
-- By materializing the result, the query optimizer avoids redundant computations and improves the query's overall performance.
