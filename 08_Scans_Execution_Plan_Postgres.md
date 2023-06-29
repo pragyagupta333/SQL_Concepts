@@ -69,7 +69,7 @@ Explantion :
 
 
 
-## 4. Bitmap Index Scan
+## 4. Bitmap heap Scan
 Uses bitmap indexes to efficiently retrieve the required rows based on a set of conditions or predicates. 
 
 Query : 
