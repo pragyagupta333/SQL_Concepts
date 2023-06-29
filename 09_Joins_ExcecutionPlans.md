@@ -96,7 +96,7 @@ Output :
 Nested Loop Inner Join (rows=10 loops=1)
   Join Filter: (o.customer_id > c.id)
 Seq Scan on customers as c (rows=5 loops=1)	
- Materialize (rows=5 loops=5)	
+Materialize (rows=5 loops=5)	
  Seq Scan on orders as o (rows=5 loops=1)
 ```
 
