@@ -46,25 +46,25 @@ Indexes work by creating a separate data structure that stores a mapping of the 
 
 
 
-    SELECT * FROM orders WHERE customer_id = 123; 
+SELECT * FROM orders WHERE customer_id = 123; 
 
-    index cols : customer_id
+index cols : customer_id
 
 **Creating indexes on frequently sorted columns - ORDER BY or GROUP BY Clause**
 
 
 
 
-    SELECT * FROM orders ORDER BY order_date;
+SELECT * FROM orders ORDER BY order_date;
 
-    index cols : order_date
-
-
+index cols : order_date
 
 
-    SELECT * FROM orders GROUP BY catergory_name;
 
-    index cols : catergory_name
+
+SELECT * FROM orders GROUP BY catergory_name;
+
+index cols : catergory_name
 
 
 
@@ -76,9 +76,9 @@ A composite index is an index that is based on multiple columns. Creating a comp
 
 
 
-    SELECT * FROM orders WHERE customer_id = 123 ORDER BY order_date;
+SELECT * FROM orders WHERE customer_id = 123 ORDER BY order_date;
 
-    index cols : customer_id,order_date
+index cols : customer_id,order_date
 
 
 
@@ -88,9 +88,9 @@ A composite index is an index that is based on multiple columns. Creating a comp
 
 
 
-    SELECT customer_id, order_date, product_name FROM orders WHERE customer_id = 123;
+SELECT customer_id, order_date, product_name FROM orders WHERE customer_id = 123;
 
-    index cols : customer_id,order_date,product_name
+index cols : customer_id,order_date,product_name
 
 ### [3] Database configuration: 
 
@@ -100,7 +100,7 @@ This includes things like adjusting memory and buffer pool settings, adjusting t
 
 ### [4] Partitioning:
 
- Partitioning large tables can improve query performance by allowing the database to only scan the partitions that are relevant to a given query.
+Partitioning large tables can improve query performance by allowing the database to only scan the partitions that are relevant to a given query.
 
 ### [5] Caching: 
 
@@ -210,6 +210,146 @@ Cursors involve row-by-row processing, which can lead to performance issues and 
 
 
 
-### Use Table variable in place of Temp table.
+### Table variable 
 
- Use of Temp tables required interaction with TempDb database which is a time taking task.
+[Table Variable](https://www.sqlservertutorial.net/sql-server-user-defined-functions/sql-server-table-variables/) are kinds of variables that allow you to hold rows of data
+
+
+
+
+### Temp table V/s Table Variable
+
+Similarities with Temp Table : 
+
+- Table variables are **out of scope at the end of the batch**.
+
+- You can **query data** from the table variables using the **SELECT statement**.
+
+- Similar to the temporary table, the table variables do live in the tempdb database, not in the memory. Every operation on a table variable is committed immediately in a separate transaction.
+
+
+
+
+Differences with Temp Table OR Disadvantages of Table Variables :
+
+- Unlike a regular or temporary table, you **cannot alter the structure of the table variables after they are declared**.
+
+- Statistics help the query optimizer to come up with a good query’s execution plan. Unfortunately, **table variables do not contain statistics**. Therefore, you should use table variables to hold a small number of rows.
+
+- Table variable CRUD operations do not manage by explicit transactions. As a result, ROLLBACK TRAN cannot erase the modified data for the table variables.
+
+
+
+
+### Indexes And Table Variables :
+
+
+
+
+You cannot create non-clustered indexes for table variables. However, starting with SQL Server 2014, memory-optimized table variables are available with the introduction of the new In-Memory OLTP that **allows you to add non-clustered indexes as part of table variable’s declaration**. [Add Indexes for Table variable](https://stackoverflow.com/questions/886050/creating-an-index-on-a-table-variable)
+
+[Examples and explanation](https://www.sqlshack.com/the-table-variable-in-sql-server/)
+
+
+
+
+### Performance of table variables
+
+
+
+
+- Using table variables in a stored procedure results in fewer recompilations than using a temporary table.
+
+
+
+
+- In addition, a table variable use fewer resources than a temporary table with less locking and logging overhead.
+
+
+
+
+### Choosing between table variables and temporary tables 
+
+It depends on these factors:
+
+
+
+
+- The number of rows that are inserted to the table.
+
+- The number of recompilations the query is saved from.
+
+- The type of queries and their dependency on indexes and statistics for performance.
+
+
+
+
+In some situations, breaking a stored procedure with temporary tables into smaller stored procedures so that recompilation takes place on smaller units is helpful.
+
+
+
+
+In general, you use table variables whenever possible except when there is a significant volume of data and there is repeated use of the table. In that case, you can create indexes on the temporary table to increase query performance. However, each scenario may be different. Microsoft recommends that you test if table variables are more helpful than temporary tables for a particular query or stored procedure.
+
+
+
+
+There are no statistics based recompiles for table variables. The general rule of thumb is to use temporary tables when operating on large datasets and table variables for small datasets with frequent updates.
+
+
+
+
+
+### Why UNION ALL in place of UNION for performance ?
+
+
+
+
+UNION: The UNION operator combines the result sets of multiple queries and removes any duplicate rows from the final result. To do this, it requires an additional step to check for and eliminate duplicates, which can impact performance.
+
+
+
+
+UNION ALL: The UNION ALL operator combines the result sets of multiple queries, but it includes all rows from each query, even if there are duplicates. It does not remove duplicates, so it avoids the overhead of duplicate elimination.
+
+
+
+
+### Why Stored procedures are better than inline queries for performance ?
+
+Stored procedures are precompiled and cached so the performance is much better.
+
+
+
+
+[In detail explanation](https://medium.com/@patilpoojaif/why-the-stored-procedure-performs-better-than-inline-queries-1e526f1bc1c2#:~:text=%E2%80%9CStored%20procedures%20are%20precompiled%20and,write%20code%20again%20and%20again.)
+
+
+
+
+### Use TRUNCATE instead of DELETE to delete all rows in a table
+
+
+
+
+- Delete statement removes the records one by one and it logs each entry into the transaction log(hence, slower). It is a DML statement.
+
+
+
+
+- SQL Truncate is a data definition language (DDL) command. It removes all rows in a table. The truncate command deletes rows by deallocating the pages. It makes an entry for the de-allocation of pages in the transaction log. It does not log each row deletion in the transaction log(hence, faster).
+
+
+
+
+### Differences between the SQL Server DELETE and TRUNCATE Commands
+
+- Truncate reseeds identity values, whereas delete doesn't.
+
+- Truncate removes all records and doesn't fire triggers.
+
+- Truncate is faster compared to delete as it makes less use of the transaction log.
+
+- Truncate is not possible when a table is referenced by a Foreign Key or tables are used in replication or with indexed views.
+
+[Refer](https://www.sqlshack.com/differen
