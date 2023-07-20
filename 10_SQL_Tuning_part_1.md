@@ -352,4 +352,4 @@ Stored procedures are precompiled and cached so the performance is much better.
 
 - Truncate is not possible when a table is referenced by a Foreign Key or tables are used in replication or with indexed views.
 
-[Refer](https://www.sqlshack.com/differen
+[Refer](https://www.sqlshack.com/difference-between-sql-truncate-and-sql-delete-statements-in-sql-server/)
